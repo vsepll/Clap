@@ -34,6 +34,20 @@ function App() {
     setIsCreatingPedido(false)
   }
 
+  // Navigate to another pedido in the same group (carousel)
+  const handleNavigatePedido = (pedidoId: string) => {
+    const pedido = store.pedidos.find(p => p.id === pedidoId)
+    if (pedido) {
+      store.setEditingPedidoId(pedidoId)
+      store.setEditingClienteId(pedido.clienteId)
+    }
+  }
+
+  // All pedidos in the same group as the current one (for carousel navigation)
+  const siblingPedidos = store.editingPedido
+    ? store.pedidos.filter(p => p.grupoId === store.editingPedido!.grupoId)
+    : []
+
   const isClientFormOpen = isCreatingClient || !!store.editingClienteId
   const isPedidoFormOpen = isCreatingPedido || !!store.editingPedidoId
 
@@ -112,10 +126,12 @@ function App() {
           clienteId={store.editingClienteId}
           grupos={store.grupos}
           editingPedido={store.editingPedido}
+          siblingPedidos={siblingPedidos}
           onSave={store.addPedido}
           onUpdate={store.updatePedido}
           onDelete={store.deletePedido}
           onCancel={handleClosePedidoForm}
+          onNavigate={handleNavigatePedido}
         />
       )}
     </div>
