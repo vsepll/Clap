@@ -8,12 +8,12 @@ import {
     TableHeader,
     TableRow,
 } from './ui/table'
-import { DollarSign, AlertCircle, CheckCircle2, TrendingUp, Calendar } from 'lucide-react'
-import { format, parseISO, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns'
+import { AlertCircle, CheckCircle2, TrendingUp, Calendar } from 'lucide-react'
+import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 export default function ReportsView() {
-    const { pedidos, clientes } = useStore()
+    const { pedidos } = useStore()
 
     // Cálculos totales
     const totalSena = pedidos.reduce((acc, p) => acc + (p.sena || 0), 0)
