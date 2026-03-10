@@ -1,0 +1,41 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+/src/generated/prisma
+
+# Debug / temp files
+compile-error*.txt
+nul
+
+# Agent / IDE configs
+.agent/
+.agents/
+.windsurf/
+skills/
+skills-lock.json
+
+# Claude local settings (keep launch.json but not secrets/skills)
+.claude/settings.local.json
+.claude/skills/
