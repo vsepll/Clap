@@ -1,6 +1,5 @@
-// Usamos la IP/Hostname actual para que sea accesible desde celulares y otros PCs en la misma red
-export const SERVER_IP = window.location.hostname;
-export const API_URL = `http://${SERVER_IP}:3001/api`;
+// URL relativa: funciona tanto en dev (con proxy Vite) como en producción (Cloudflare Tunnel)
+export const API_URL = '/api';
 
 export const api = {
     // Grupos

@@ -23,11 +23,6 @@ function App() {
     store.setEditingPedidoId(null)
   }
 
-  const handleOpenClientDetails = (clienteId: string) => {
-    store.setEditingClienteId(clienteId)
-    setIsCreatingClient(false)
-  }
-
   const handleOpenPedidoDetails = (pedidoId: string, clienteId: string) => {
     store.setEditingPedidoId(pedidoId)
     store.setEditingClienteId(clienteId)
@@ -63,7 +58,7 @@ function App() {
           <AlertTriangle className="h-4 w-4 text-red-400 shrink-0" />
           <p className="text-xs text-red-400">{store.serverError}</p>
           <button
-            onClick={store.refreshData}
+            onClick={() => store.refreshData()}
             className="ml-auto text-xs text-red-400 hover:text-red-300 border border-red-900/50 px-2.5 py-1 rounded transition-colors"
           >
             Reintentar

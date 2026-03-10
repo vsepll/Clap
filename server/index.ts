@@ -235,6 +235,15 @@ app.delete('/api/pedidos/:id', (req, res) => {
     }
 });
 
+// --- STATIC FILES (producción: sirve el build de Vite) ---
+const distPath = path.resolve(__dirname, '..', 'dist');
+console.log(`Serving static files from: ${distPath}`);
+app.use(express.static(distPath));
+// SPA fallback: cualquier ruta no-API devuelve index.html (Express 5: usar /*splat)
+app.get('/{*splat}', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+});
+
 const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
