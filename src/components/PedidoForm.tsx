@@ -49,6 +49,9 @@ export default function PedidoForm({
   const [formError, setFormError] = useState<string | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
+  // Depend on IDs, not object references — prevents background refresh from resetting the form
+  const pedidoId = editingPedido?.id ?? null
+  const firstGrupoId = grupos[0]?.id ?? ''
   useEffect(() => {
     if (editingPedido) {
       setForm({
@@ -62,11 +65,12 @@ export default function PedidoForm({
         grupoId: editingPedido.grupoId,
       })
     } else {
-      setForm({ ...emptyPedido, grupoId: grupos[0]?.id || '' })
+      setForm({ ...emptyPedido, grupoId: firstGrupoId })
     }
     setShowDeleteConfirm(false)
     setLightboxIndex(null)
-  }, [editingPedido, grupos])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pedidoId, firstGrupoId])
 
   // Keyboard navigation for lightbox — capture phase to intercept Dialog's Escape handler
   useEffect(() => {

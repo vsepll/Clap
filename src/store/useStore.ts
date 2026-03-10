@@ -12,7 +12,9 @@ export function useStore() {
   const [isLoading, setIsLoading] = useState(true)
   const [serverError, setServerError] = useState<string | null>(null)
 
-  const refreshData = useCallback(async () => {
+  const refreshData = useCallback(async (force = false) => {
+    // Skip background refresh while any form/dialog is open to avoid resetting unsaved input
+    if (!force && document.querySelector('[role="dialog"]')) return
     setIsLoading(true)
     try {
       // Migrar datos legacy de localStorage si existen
@@ -55,8 +57,8 @@ export function useStore() {
   }, [])
 
   useEffect(() => {
-    refreshData()
-    const interval = setInterval(refreshData, 15000)
+    refreshData(true)                          // initial load always runs
+    const interval = setInterval(refreshData, 30000)  // background: skip if dialog open
     return () => clearInterval(interval)
   }, [refreshData])
 

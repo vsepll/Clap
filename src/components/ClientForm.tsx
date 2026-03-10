@@ -30,10 +30,13 @@ export default function ClientForm({
   const [form, setForm] = useState(emptyForm)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
+  // Depend on the ID, not the object reference — prevents refresh from resetting the form
+  const clienteId = editingCliente?.id ?? null
   useEffect(() => {
     setForm(editingCliente ? { nombre: editingCliente.nombre, whatsapp: editingCliente.whatsapp } : emptyForm)
     setConfirmDelete(false)
-  }, [editingCliente])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clienteId])
 
   const set = (field: string, value: string) =>
     setForm(prev => ({ ...prev, [field]: value }))
